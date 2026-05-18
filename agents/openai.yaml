@@ -1,0 +1,6 @@
+interface:
+  display_name: "Homework Typst Report"
+  short_description: "Write ECNU-style Typst homework and lab reports"
+  default_prompt: "Use $homework-typst-report to draft a homework report in report/report.typ."
+policy:
+  allow_implicit_invocation: false
