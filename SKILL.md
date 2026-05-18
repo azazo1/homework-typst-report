@@ -21,12 +21,13 @@ Produce the final answer as a Typst report at `report/report.typ`. Keep `report/
 10. If the source material contains explicit question text, convert that question text into appropriate Typst structure without changing a single word of the original wording.
 11. If code execution is part of the homework, create or update a project-root `justfile` so the relevant execution steps and result generation can be reproduced easily.
 12. If code execution is part of the homework, make sure the report presents the execution inputs and outputs clearly enough for the result to be understood and checked.
-13. If code execution is part of the homework and the assignment explicitly asks for screenshots of command output, rerun the relevant command with `--color=always` or an equivalent color-preserving option, convert the ANSI-colored output to HTML with `aha`, render that HTML to an image, store the image under the project-root `assets/` directory, and insert that image into the report.
-14. If it is report-style, organize the document as an experiment report instead of forcing a question-answer format.
-15. Compile or preview the report with the project root as the Typst compile root rather than the `report/` directory.
-16. After compiling the report, review the rendered PDF visually by reading page images rather than relying only on source text or extracted PDF text.
-17. If the rendered pages look cramped, sparse, unbalanced, awkwardly paginated, or visually rough, revise layout, spacing, page breaks, figure sizing, table layout, or content distribution and render again.
-18. Recheck tone, punctuation, math syntax, list style, heading structure, metadata fields, resource paths, reproducibility artifacts, and visual presentation before finishing.
+13. If code execution is part of the homework and the assignment explicitly asks for screenshots of command output, prefer rerunning the relevant command with `--color=always` or an equivalent color-preserving option, converting the ANSI-colored output to HTML with `aha`, rendering that HTML to an image, storing the image under the project-root `assets/` directory, and inserting that image into the report.
+14. If the `aha`-based path is unsuitable or a direct terminal-style screenshot artifact is preferable, use `freeze` CLI as a fallback to render the command output into an image, for example via `freeze --execute` or an equivalent input-preserving invocation, and store the generated image under the project-root `assets/` directory.
+15. If it is report-style, organize the document as an experiment report instead of forcing a question-answer format.
+16. Compile or preview the report with the project root as the Typst compile root rather than the `report/` directory.
+17. After compiling the report, review the rendered PDF visually by reading page images rather than relying only on source text or extracted PDF text.
+18. If the rendered pages look cramped, sparse, unbalanced, awkwardly paginated, or visually rough, revise layout, spacing, page breaks, figure sizing, table layout, or content distribution and render again.
+19. Recheck tone, punctuation, math syntax, list style, heading structure, metadata fields, resource paths, reproducibility artifacts, and visual presentation before finishing.
 
 ## Output Contract
 
@@ -45,7 +46,8 @@ Produce the final answer as a Typst report at `report/report.typ`. Keep `report/
 - If the homework involves code execution, present the execution inputs explicitly, such as source data, parameters, configuration choices, or test cases, unless the assignment makes them obvious already.
 - If the homework involves code execution, include the original execution output in the report. When the output is too long, include a representative excerpt rather than dumping everything.
 - If the homework involves code execution, also include a readable presentation of the output results, such as a table, chart, summary figure, or other suitable visualization.
-- If the homework explicitly requires screenshots of command output, generate terminal-style screenshot assets from the command output by preserving ANSI color, converting the output to HTML with `aha`, rendering that HTML to an image, storing the image under the project-root `assets/` directory, and inserting the image into the report instead of using an ad hoc desktop screenshot.
+- If the homework explicitly requires screenshots of command output, generate terminal-style screenshot assets from the command output by preserving ANSI color, preferably converting the output to HTML with `aha`, rendering that HTML to an image, storing the image under the project-root `assets/` directory, and inserting the image into the report instead of using an ad hoc desktop screenshot.
+- If the `aha`-based path is not a good fit, `freeze` CLI may be used as a fallback to render the command output directly into `.png` or `.webp` assets for the report.
 - If the source material contains explicit question text, preserve the original wording exactly in the report body. Only convert its formatting into equivalent Typst code.
 - Do not place the full question stem or an entire question paragraph inside headings. Put a concise question title in the heading, and keep the full question wording in the body below the heading.
 - Keep heading text short. Avoid long heading lines that read like condensed paragraphs or near-complete question summaries.
@@ -68,6 +70,7 @@ Produce the final answer as a Typst report at `report/report.typ`. Keep `report/
 - When presenting execution-based work, explain the inputs and outputs directly. Avoid turning the report into tool usage notes about how the task was rerun.
 - When reproducibility matters, keep the execution entrypoints straightforward so another person can rerun the work from the project root with minimal guesswork.
 - When command-output screenshots are required, prefer readable terminal-style captures generated from the actual command output over manually cropped window screenshots.
+- Prefer the `aha`-based HTML rendering path first, and treat `freeze` as a fallback when a direct terminal screenshot image is the more practical artifact.
 
 Read `references/report-style.md` when drafting or revising the answer text.
 
@@ -100,6 +103,7 @@ Read `references/report-style.md` when drafting or revising the answer text.
 - When including execution inputs or outputs, label them clearly so the reader can distinguish what was fed into the program from what the program produced.
 - When including execution output, preserve the original content faithfully, but trim it to a representative excerpt if the full output would be too long for the page.
 - When the assignment requires a screenshot of command output, preserve the output with `--color=always` or an equivalent color-preserving option, convert it to HTML with `aha`, render the HTML to an image, and include that image in the report as a figure.
+- When the `aha`-based path is not ideal, use `freeze` as a fallback to capture the command output directly, such as with `freeze --execute`, and include the generated image in the report as a figure.
 - Keep `justfile` recipes practical and project-facing. Do not encode sandbox-only setup steps, temporary cache workarounds, or other environment-specific instructions that are irrelevant to normal reproduction.
 - Keep mathematical expressions valid in Typst. Rewrite LaTeX-only constructs when necessary.
 - Do not wrap math expressions in raw/code formatting. For example, write `$B^+ = {B, D}$`, not `` `$B^+ = {B, D}$` ``.
