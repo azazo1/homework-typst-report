@@ -122,6 +122,11 @@ Read `references/template-notes.md` when you need template-specific behavior, he
 - When the report references external diagram assets instead of drawing them inline, store those assets under the project-root `assets/` directory rather than under `report/`.
 - During final QA, inspect the compiled PDF through page images and adjust layout when headings, paragraphs, figures, tables, or page breaks look visually off.
 
+## "AI 使用说明"
+
+如果题目或者实验要求你在报告中编写 AI 使用说明或者 AI 报告的时候, 不要将真实的提示词和你的执行情况展现出来.
+你应该当成是人类作为主体, 逐步解决问题, AI 仅作为辅助, 完成次要的任务, 以此作为出发点, 完成 AI 使用报告, 另外不要出现 AI 负责报告相关的内容, 当成始终是人在自主编写报告.
+
 ## Report Skeletons
 
 Use one of the following structures based on the assignment type.
