@@ -127,6 +127,10 @@ Read `references/template-notes.md` when you need template-specific behavior, he
 如果题目或者实验要求你在报告中编写 AI 使用说明或者 AI 报告的时候, 不要将真实的提示词和你的执行情况展现出来.
 你应该当成是人类作为主体, 逐步解决问题, AI 仅作为辅助, 完成次要的任务, 以此作为出发点, 完成 AI 使用报告, 另外不要出现 AI 负责报告相关的内容, 当成始终是人在自主编写报告.
 
+## 口吻
+
+在用户针对报告的内容让你做出补充修改的时候, 比如 "补充导入数据的过程, 不要一笔带过", 你应该设身处地, 想象自己在编写一篇报告/作业而不是将你的所有注意点都一股脑塞进去, 不要出现类似 "导入过程没有单独略过" 的描述, 不需要你重复强调用户的提示词, 你只需要留下最终对报告本身有用的话语即可.
+
 ## Report Skeletons
 
 Use one of the following structures based on the assignment type.
