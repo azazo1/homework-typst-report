@@ -21,13 +21,14 @@ Produce the final answer as a Typst report at `report/report.typ`. Keep `report/
 10. If the source material contains explicit question text, convert that question text into appropriate Typst structure without changing a single word of the original wording.
 11. If code execution is part of the homework, create or update a project-root `justfile` so the relevant execution steps and result generation can be reproduced easily.
 12. If code execution is part of the homework, make sure the report presents the execution inputs and outputs clearly enough for the result to be understood and checked.
-13. If code execution is part of the homework and the assignment explicitly asks for screenshots of command output, prefer using `freeze` CLI to render the command output into an image, for example via `freeze --execute` or an equivalent input-preserving invocation, store the generated image under the project-root `assets/` directory, and insert that image into the report.
-14. If the `freeze`-based path is unsuitable, preserve ANSI color with `--color=always` or an equivalent color-preserving option, convert the output to HTML with `aha`, render that HTML to an image, store the image under the project-root `assets/` directory, and use that image in the report as a fallback.
-15. If it is report-style, organize the document as an experiment report instead of forcing a question-answer format.
-16. Compile or preview the report with the project root as the Typst compile root rather than the `report/` directory.
-17. After compiling the report, review the rendered PDF visually by reading page images rather than relying only on source text or extracted PDF text.
-18. If the rendered pages look cramped, sparse, unbalanced, awkwardly paginated, or visually rough, revise layout, spacing, page breaks, figure sizing, table layout, or content distribution and render again.
-19. Recheck tone, punctuation, math syntax, list style, heading structure, metadata fields, resource paths, reproducibility artifacts, and visual presentation before finishing.
+13. If code execution is part of a multi-question or multi-part homework, keep the executable code split by question or subquestion. Do not merge all problems into one source file when separate files are the natural mapping.
+14. If code execution is part of the homework and the assignment explicitly asks for screenshots of command output, prefer using `freeze` CLI to render the command output into an image, for example via `freeze --execute` or an equivalent input-preserving invocation, store the generated image under the project-root `assets/` directory, and insert that image into the report.
+15. If the `freeze`-based path is unsuitable, preserve ANSI color with `--color=always` or an equivalent color-preserving option, convert the output to HTML with `aha`, render that HTML to an image, store the image under the project-root `assets/` directory, and use that image in the report as a fallback.
+16. If it is report-style, organize the document as an experiment report instead of forcing a question-answer format.
+17. Compile or preview the report with the project root as the Typst compile root rather than the `report/` directory.
+18. After compiling the report, review the rendered PDF visually by reading page images rather than relying only on source text or extracted PDF text.
+19. If the rendered pages look cramped, sparse, unbalanced, awkwardly paginated, or visually rough, revise layout, spacing, page breaks, figure sizing, table layout, or content distribution and render again.
+20. Recheck tone, punctuation, math syntax, list style, heading structure, metadata fields, resource paths, reproducibility artifacts, and visual presentation before finishing.
 
 ## Output Contract
 
@@ -43,6 +44,7 @@ Produce the final answer as a Typst report at `report/report.typ`. Keep `report/
 - Do not import the template directly from `assets/` inside the report file.
 - Do not place report images, exported figures, datasets, or other non-Typst helper files under `report/`.
 - If the homework involves code execution, create or update a project-root `justfile` that can reproduce the execution steps behind the reported results.
+- If the homework involves code execution across multiple questions or subquestions, keep separate executable source files for different problems instead of folding everything into a single file by default.
 - If the homework involves code execution, present the execution inputs explicitly, such as source data, parameters, configuration choices, or test cases, unless the assignment makes them obvious already.
 - If the homework involves code execution, include the original execution output in the report. When the output is too long, include representative selected lines rather than dumping everything. Select which lines to show, but do not alter the content within any displayed line. Do not label that material with the word "摘录".
 - If the homework involves code execution, also include a readable presentation of the output results, such as a table, chart, summary figure, or other suitable visualization.
@@ -88,6 +90,7 @@ Read `references/report-style.md` when drafting or revising the answer text.
 - For question-answer assignments, use a one-question-one-answer structure: each question should use a short first-level heading that includes the question title, and its solution should appear under a second-level `回答` heading.
 - Put the full question text immediately below the question heading instead of embedding the whole question into the heading itself.
 - Do not create a single global `题目` section followed by a single global `回答` section for multi-question homework.
+- If different questions or subquestions require code, organize the executable files to match that structure instead of routing all implementations through one shared catch-all source file, unless the assignment explicitly requires a single combined program.
 - For report-style assignments, do not fabricate a separate "题目/回答" layout if the source material is already report-oriented.
 - Use `#enum(...)` for ordered subanswers when the prompt is list-shaped, and match the numbering form expected by the assignment.
 - Prefer compact lists. Use non-compact lists only when a single item is long or visually tall.
@@ -101,6 +104,7 @@ Read `references/report-style.md` when drafting or revising the answer text.
 - Use display math or inline math only where mathematical notation is actually needed.
 - Do not wrap every technical term in code formatting or math delimiters.
 - When including code snippets, reformat them sensibly before insertion. Break long lines, preserve indentation, and omit irrelevant parts when that improves readability without changing the meaning.
+- When homework code spans multiple questions or subquestions, prefer separate source files that map cleanly to those parts unless a shared library or an explicit assignment requirement justifies consolidation.
 - When including execution inputs or outputs, label them clearly so the reader can distinguish what was fed into the program from what the program produced.
 - When including execution output, preserve the original content faithfully, but trim it to representative selected lines if the full output would be too long for the page. Select lines rather than rewriting line content, and do not label the visible section as "摘录".
 - When the assignment requires a screenshot of command output, prefer using `freeze` to capture the command output directly, such as with `freeze --execute`, and include the generated image in the report as a figure.
