@@ -1,39 +1,39 @@
-# Template Notes
+# 模板说明
 
-## Bundled Template
+## 内置模板
 
-The skill bundles `assets/ecnu_report_template.typ` as the template source. Before writing the report body, copy it to `report/ecnu_report_template.typ`, then import that copied file from `report/report.typ`.
+该技能内置了 `assets/ecnu_report_template.typ` 作为模板源码. 在编写报告正文之前, 先把它复制到 `report/ecnu_report_template.typ`, 然后在 `report/report.typ` 中导入这份副本.
 
-Recommended import pattern:
+推荐的导入方式如下:
 
 ```typst
 #import "./ecnu_report_template.typ": conf
 ```
 
-The goal is for the final report directory to contain both `report/report.typ` and its local template dependency.
+目标是让最终的 `report/` 目录同时包含 `report/report.typ` 和它所依赖的本地模板文件.
 
-## Template Behavior
+## 模板行为
 
-- The template provides `conf(...)` for the report header, metadata table, page header, and heading numbering.
-- First-level headings are rendered in Chinese numbering automatically.
-- Lower-level headings are also numbered automatically, so do not hardcode numeric prefixes in heading titles.
-- Follow the same rule for other auto-numbered elements such as figures and tables: do not manually add prefixes like `表 1:` or `图 2:` inside captions.
-- Do not wrap first-level headings in manual centering constructs; keep them in the template's default document flow.
-- The template is intended for A4 course reports with Chinese text and mixed Times New Roman / SimSun typography.
-- When transcribing question text into the report, keep the original wording unchanged and only convert the surrounding structure into valid Typst constructs.
+- 模板通过 `conf(...)` 提供报告标题, 元数据表格, 页眉和标题编号等能力.
+- 一级标题会自动使用中文编号渲染.
+- 更低级别的标题也会自动编号, 因此不要在标题文字里硬编码数字前缀.
+- 图表等其他自动编号元素也遵循同样规则. 不要在标题或图注中手动写入 `表 1:` 或 `图 2:` 之类的前缀.
+- 不要把一级标题包进手动居中的结构里, 保持模板默认的正文流即可.
+- 该模板面向 A4 中文课程报告, 使用 Times New Roman 与 SimSun 的混排字体风格.
+- 当把题目文字整理进报告时, 要保持原文不变, 只把外围结构改写成合法的 Typst 形式.
 
-## Useful Patterns
+## 常用模式
 
-### Structure Selection
+### 结构选择
 
-- If the assignment is given as explicit questions, use a question-answer structure and keep the prompt and answer areas distinct.
-- For multi-question homework, make each question a first-level heading and place `== 回答` directly under that question.
-- If the assignment is a report brief or experiment writeup, use report sections instead of forcing a question-answer layout.
-- Keep the section set minimal and task-driven.
+- 如果作业以明确题目形式给出, 就使用问答结构, 并把题目区和回答区清楚分开.
+- 对于多题作业, 每道题都作为一级标题, 并在该题下直接放置 `== 回答`.
+- 如果任务本身就是报告说明或实验写作要求, 就使用报告章节, 不要强行改成问答结构.
+- 章节集合应尽量精简, 由任务本身驱动.
 
-### Ordered Lists
+### 有序列表
 
-Use Typst `#enum(...)` for ordered subanswers. Keep it compact unless an item is long.
+对有序子答案使用 Typst 的 `#enum(...)`. 只有当单个条目较长时, 才考虑放宽紧凑度.
 
 ```typst
 #enum(
@@ -44,31 +44,31 @@ Use Typst `#enum(...)` for ordered subanswers. Keep it compact unless an item is
 )
 ```
 
-### Hidden Helper Content
+### 隐藏辅助内容
 
-If a task genuinely needs the `display` helper described in the original workflow, define it locally in `report/report.typ` before use.
+如果任务确实需要原工作流中提到的 `display` 辅助函数, 就在 `report/report.typ` 里先本地定义, 再使用.
 
-### Figures
+### 图形
 
-Wrap tables, images, and diagrams with `#figure(...)` so they align with the report structure.
+表格, 图片和示意图都应包在 `#figure(...)` 中, 以便与报告结构保持一致.
 
-For Typst tables, keep the header cells inside one `table.header(...)` call. Prefer:
+对于 Typst 表格, 所有表头单元格都应放在一次 `table.header(...)` 调用中. 推荐写法如下:
 
 ```typst
 table.header([*ID*], [*project*], [*skill*])
 ```
 
-Do not split the header into repeated standalone entries such as `table.header[*ID*]`, `table.header[*project*]`, and `table.header[*skill*]`.
+不要把表头拆成多个独立条目, 例如 `table.header[*ID*]`, `table.header[*project*]` 和 `table.header[*skill*]`.
 
-For figure or table captions, write only the descriptive text and let Typst add the label and numbering automatically.
+对于图注或表注, 只写描述性文字本身, 让 Typst 自动补充标签和编号.
 
-## Typst-Specific Cautions
+## Typst 特定注意事项
 
-- Rewrite LaTeX-only formula syntax into valid Typst syntax.
-- For arrow-style expressions that include English words, keep them in math mode and write the words as quoted math text, such as `$"project" -> "manager"$`.
-- Use headings, lists, tables, and figures idiomatically instead of trying to emulate Markdown literally.
-- Add extra packages only when they solve a concrete presentation problem in the assignment.
+- 把只有 LaTeX 才支持的公式语法改写成合法的 Typst 语法.
+- 对于同时包含英文词语和箭头运算符的表达式, 整体保持在数学模式中, 并把英文写成带引号的数学文本, 例如 `$"project" -> "manager"$`.
+- 使用符合 Typst 习惯的标题, 列表, 表格和图形, 不要生搬硬套 Markdown.
+- 只有在它们能解决作业中的具体排版问题时, 才额外引入包.
 
-## Scope Discipline
+## 范围约束
 
-The report should look like a completed student submission. Any helper code or package usage must remain subordinate to the assignment content.
+最终报告应看起来像一份完整的学生提交件. 任何辅助代码或包的使用都必须从属于作业内容本身.

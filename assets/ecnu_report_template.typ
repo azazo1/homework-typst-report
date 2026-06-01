@@ -1,7 +1,7 @@
 
 #let para-indent = 2em
 
-// 获取当前激活的 heading，参数 prev 用于标志优先使用之前页面的 heading
+// 获取当前激活的标题, 参数 prev 用于标记优先使用前一页的标题
 #let active-heading(level: 1, prev: false) = {
   // 之前页面的标题
   let prev-headings = query(selector(heading.where(level: level)).before(here()))
@@ -28,7 +28,7 @@
   }
 }
 
-// 项目配置, 使用方法:
+// 项目配置, 使用方式:
 // ```typst
 // #show: conf(name: "xxx", ...)
 // = 实验简介
@@ -37,9 +37,9 @@
 // = 实验心得
 // ```
 //
-// - codly: 好看的代码块. 使用 `#codly(languages: codly-languages)` 来获得更好看的效果
+// - codly: 更美观的代码块. 使用 `#codly(languages: codly-languages)` 可获得更好的显示效果
 // - cuti: 中文伪粗体
-// - numbly: numbering 的方便的工具
+// - numbly: 用于处理 numbering 的便捷工具
 #let conf(
   title: "华东师范大学软件工程学院实验报告",
   course_name: "",
@@ -52,7 +52,7 @@
   advisor: "", // 指导老师
   group_no: "",
 ) = {
-  // 返回闭包以便 conf 函数直接给 show
+  // 返回闭包, 以便 conf 函数可直接传给 show
   doc => {
     // 参数设置
     import "@preview/numbly:0.1.0": numbly
@@ -67,7 +67,7 @@
       lang: "zh",
     )
 
-    // 修复 enum 标签错位问题.
+    // 修复 enum 标签错位的问题.
     import "@preview/itemize:0.2.0" as el
     show: el.default-enum-list
 
@@ -78,9 +78,9 @@
       ),
       justify: true,
     )
-    // typst 的 first-line-indent 对标题后的第一段无效, 故创建一个空的第一段, 然后减回它的高度
-    // 这个问题可能将很快得到解决: https://github.com/typst/typst/issues/311#issuecomment-2589636525
-    // typst 0.13 已经解决这个问题
+    // Typst 的 first-line-indent 对标题后的第一段无效, 因此先创建一个空的第一段, 再减回它的高度
+    // 这个问题曾在此讨论: https://github.com/typst/typst/issues/311#issuecomment-2589636525
+    // Typst 0.13 已经解决了这个问题
     //
     // show selector.or(heading, table, grid, figure): it => {
     //   it
@@ -124,8 +124,8 @@
               text(size: 13pt)[
                 #{
                   let h2 = active-heading(level: 2, prev: false)
-                  // todo 如果 h2 是 h1 的子标题, 那么才显示 h2,
-                  // 但是 typst 的这些元素本身似乎是不包含位置信息的, 不知道怎么做到.
+                  // TODO 如果 h2 是 h1 的子标题, 那么才显示 h2.
+                  // 但 Typst 的这些元素本身似乎不包含位置信息, 目前还不清楚该如何实现.
                   if (h2 != none) {
                     h2.body
                   }
@@ -168,7 +168,7 @@
       v(0.67em)
     }
 
-    // 让一个 figure 能够跨页
+    // 允许 figure 跨页
     show figure: set block(breakable: true)
 
     // 显示信息表格

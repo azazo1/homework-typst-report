@@ -1,141 +1,141 @@
 ---
 name: homework-typst-report
-description: Write concise Chinese homework reports in Typst using the bundled ECNU-style report template. Use when Codex needs to answer course assignments, lab reports, theory exercises, or structured homework questions by producing or revising `report/report.typ`, especially when the report should restate the prompt, follow a formal student-assignment tone, and fit an existing course report style instead of sounding like tooling instructions or AI meta commentary.
+description: 使用内置的 ECNU 风格报告模板, 在 Typst 中撰写简洁的中文作业报告. 当 Codex 需要通过生成或修改 `report/report.typ` 来回答课程作业, 实验报告, 理论练习或结构化作业题时使用, 尤其适用于报告需要重述题目, 保持正式的学生作业语气, 并贴合现有课程报告风格, 而不是写成工具说明或 AI 元叙事的场景.
 ---
 
-# Homework Typst Report
+# 作业 Typst 报告
 
-Produce the final answer as a Typst report at `report/report.typ`. Keep `report/` limited to `.typ` files only, and place every other report-referenced resource under the project-root `assets/` directory. Keep the report focused on the assignment content rather than on the act of writing the report.
+将最终答案写成位于 `report/report.typ` 的 Typst 报告. `report/` 目录中只放 `.typ` 文件, 其余所有被报告引用的资源都放在项目根目录的 `assets/` 下. 报告内容要聚焦作业本身, 而不是描述写报告这件事.
 
-## Workflow
+## 工作流程
 
-1. Confirm that `report/report.typ` is the target output file.
-2. Reuse the bundled template source at `assets/ecnu_report_template.typ`. If the template is missing, stop and tell the user.
-3. Copy the template into `report/ecnu_report_template.typ` before writing the report body.
-4. Ensure the project-root `assets/` directory exists before placing any non-Typst report resources.
-5. Place any additional images, datasets, generated diagrams, attachments, or helper files referenced by the report under the project-root `assets/` directory.
-6. Keep `report/` limited to `.typ` files only. Do not place images or other non-Typst resources there.
-7. Fill the `date` field in `conf(...)` whenever writing the report metadata. Use `datetime(year: ..., month: ..., day: ...)` with year-month-day precision only.
-8. Read the assignment prompt, required subquestions, and any project artifacts that the report must discuss.
-9. Determine whether the task is primarily a question-answer assignment or a report-style experiment writeup.
-10. If the source material contains explicit question text, convert that question text into appropriate Typst structure without changing a single word of the original wording.
-11. If code execution is part of the homework, create or update a project-root `justfile` so the relevant execution steps and result generation can be reproduced easily.
-12. If code execution is part of the homework, make sure the report presents the execution inputs and outputs clearly enough for the result to be understood and checked.
-13. If code execution is part of a multi-question or multi-part homework, keep the executable code split by question or subquestion. Do not merge all problems into one source file when separate files are the natural mapping.
-14. If code execution is part of the homework and the assignment explicitly asks for screenshots of command output, prefer using `freeze` CLI to render the command output into an image, for example via `freeze --execute` or an equivalent input-preserving invocation, store the generated image under the project-root `assets/` directory, and insert that image into the report.
-15. If the `freeze`-based path is unsuitable, preserve ANSI color with `--color=always` or an equivalent color-preserving option, convert the output to HTML with `aha`, render that HTML to an image, store the image under the project-root `assets/` directory, and use that image in the report as a fallback.
-16. If it is report-style, organize the document as an experiment report instead of forcing a question-answer format.
-17. Compile or preview the report with the project root as the Typst compile root rather than the `report/` directory.
-18. After compiling the report, review the rendered PDF visually by reading page images rather than relying only on source text or extracted PDF text.
-19. If the rendered pages look cramped, sparse, unbalanced, awkwardly paginated, or visually rough, revise layout, spacing, page breaks, figure sizing, table layout, or content distribution and render again.
-20. Recheck tone, punctuation, math syntax, list style, heading structure, metadata fields, resource paths, reproducibility artifacts, and visual presentation before finishing.
+1. 确认 `report/report.typ` 是目标输出文件.
+2. 复用内置模板源码 `assets/ecnu_report_template.typ` 到项目 `report/ecnu_report_template.typ` 当中. 如果模板缺失, 立即停止并告知用户.
+3. 在写报告正文之前, 先把模板复制到 `report/ecnu_report_template.typ`.
+4. 在放置任何非 Typst 报告资源之前, 先确认项目根目录下的 `assets/` 已存在.
+5. 报告引用到的额外图片, 数据集, 生成图示, 附件或辅助文件, 都放在项目根目录的 `assets/` 下.
+6. 保持 `report/` 目录中只包含 `.typ` 文件. 不要把图片或其他非 Typst 资源放进去.
+7. 写报告元数据时, 必须填写 `conf(...)` 中的 `date` 字段. 使用 `datetime(year: ..., month: ..., day: ...)`, 精度只保留到年, 月, 日.
+8. 阅读作业题目, 必答子问, 以及报告必须讨论的项目产物.
+9. 判断任务主要属于问答型作业, 还是报告型实验写作.
+10. 如果源材料中包含明确题干, 将题干转换成合适的 Typst 结构, 但题目原文一个字也不要改.
+11. 如果作业包含代码执行, 创建或更新项目根目录的 `justfile`, 让相关执行步骤和结果生成方式便于复现.
+12. 如果作业包含代码执行, 确保报告把执行输入和输出交代清楚, 让结果能够被理解和核查.
+13. 如果代码执行对应的是多题或多部分作业, 按题目或子题拆分可执行代码. 当不同文件本来就是自然映射时, 不要把所有问题硬合并到一个源码文件里.
+14. 如果作业包含代码执行, 且题目明确要求命令输出截图, 优先使用 `freeze` CLI 把命令输出直接渲染成图片, 例如通过 `freeze --execute` 或其他能保留输入的等价调用方式, 把生成图片存到项目根目录的 `assets/` 下, 再插入报告.
+15. 如果基于 `freeze` 的路径不合适, 使用 `--color=always` 或其他等价选项保留 ANSI 颜色, 再用 `aha` 把输出转成 HTML, 渲染成图片, 存到项目根目录的 `assets/` 下, 作为回退方案插入报告.
+16. 如果任务属于报告型内容, 就按实验报告组织文档, 不要强行套成问答格式.
+17. 编译或预览报告时, 要把项目根目录而不是 `report/` 目录作为 Typst 的编译根.
+18. 编译完成后, 通过阅读页面图像来做 PDF 的视觉检查, 不要只依赖源码文本或提取出的 PDF 文本.
+19. 如果渲染后的页面显得拥挤, 空, 失衡, 分页别扭或整体粗糙, 继续调整版式, 间距, 分页, 图尺寸, 表格布局或内容分布, 然后重新渲染.
+20. 完成前再次检查语气, 标点, 数学语法, 列表样式, 标题结构, 元数据字段, 资源路径, 可复现实物和整体视觉呈现.
 
-## Output Contract
+## 输出约定
 
-- Write or update `report/report.typ`.
-- Copy the bundled template to `report/ecnu_report_template.typ` and import that local copy from `report/report.typ`.
-- Keep `report/` limited to `.typ` files only.
-- Place every non-Typst file referenced by `report/report.typ` under the project-root `assets/` directory unless the user explicitly requires a different location.
-- Fill the `date` field in `conf(...)` with `datetime(year: ..., month: ..., day: ...)` and keep it at year-month-day precision only.
-- Keep the report self-contained and directly compilable with Typst.
-- When compiling the report, use the project root as the compile root.
-- After writing the report, compile it to PDF and inspect the rendered pages as images for visual quality.
-- Do not treat source-only review as sufficient for final delivery when layout quality matters.
-- Do not import the template directly from `assets/` inside the report file.
-- Do not place report images, exported figures, datasets, or other non-Typst helper files under `report/`.
-- If the homework involves code execution, create or update a project-root `justfile` that can reproduce the execution steps behind the reported results.
-- If the homework involves code execution across multiple questions or subquestions, keep separate executable source files for different problems instead of folding everything into a single file by default.
-- If the homework involves code execution, present the execution inputs explicitly, such as source data, parameters, configuration choices, or test cases, unless the assignment makes them obvious already.
-- If the homework involves code execution, include the original execution output in the report. When the output is too long, include representative selected lines rather than dumping everything. Select which lines to show, but do not alter the content within any displayed line. Do not label that material with the word "摘录".
-- If the homework involves code execution, also include a readable presentation of the output results, such as a table, chart, summary figure, or other suitable visualization.
-- If the homework explicitly requires screenshots of command output, generate terminal-style screenshot assets from the command output, preferably by using `freeze` CLI to render the output directly into `.png` or `.webp` assets for the report instead of using an ad hoc desktop screenshot.
-- If the `freeze`-based path is not a good fit, preserve ANSI color and use the `aha`-based HTML rendering path as a fallback.
-- If the source material contains explicit question text, preserve the original wording exactly in the report body. Only convert its formatting into equivalent Typst code.
-- Do not place the full question stem or an entire question paragraph inside headings. Put a concise question title in the heading, and keep the full question wording in the body below the heading.
-- Keep heading text short. Avoid long heading lines that read like condensed paragraphs or near-complete question summaries.
-- Do not mention local file paths, workspace-relative paths, home-directory paths, or absolute filesystem paths in the homework content unless the assignment itself explicitly requires such a path to appear.
-- Do not describe the execution process as "using just" or otherwise foreground the `justfile` tool inside the homework narrative. The report should describe the experiment, code, inputs, and outputs rather than the convenience wrapper used for reproduction.
-- Do not mention prompt engineering, report-generation steps, model behavior, hidden reasoning, or that the report was written by an agent.
-- Do not insert process notes such as "以下开始回答", "根据要求生成", or similar meta narration unless the content is part of the assignment itself.
+- 写入或更新 `report/report.typ`.
+- 把内置模板复制到 `report/ecnu_report_template.typ`, 并在 `report/report.typ` 中导入这份本地副本.
+- 保持 `report/` 目录中只包含 `.typ` 文件.
+- 除非用户明确要求其他位置, `report/report.typ` 引用到的每一个非 Typst 文件都放在项目根目录的 `assets/` 下.
+- 用 `datetime(year: ..., month: ..., day: ...)` 填写 `conf(...)` 中的 `date` 字段, 并且精度只保留到年, 月, 日.
+- 保持报告自包含, 并能被 Typst 直接编译.
+- 编译报告时, 使用项目根目录作为编译根.
+- 写完报告后, 需要把它编译成 PDF, 并通过页面图像检查渲染质量.
+- 当版式质量会影响交付结果时, 不能把只看源码当作充分检查.
+- 不要在报告文件里直接从 `assets/` 导入模板.
+- 不要把报告图片, 导出的图形, 数据集或其他非 Typst 辅助文件放到 `report/` 下.
+- 如果作业涉及代码执行, 创建或更新项目根目录的 `justfile`, 以复现报告结果背后的执行步骤.
+- 如果作业中的代码执行横跨多道题或多个子问, 默认保持不同问题使用分开的可执行源码文件, 不要把所有内容都折叠进一个文件.
+- 如果作业涉及代码执行, 明确展示执行输入, 例如源数据, 参数, 配置选择或测试用例, 除非题目本身已经足够明显.
+- 如果作业涉及代码执行, 在报告中包含原始执行输出. 当输出过长时, 展示有代表性的若干行, 而不是整段倾倒. 可以选择展示哪些行, 但不要改动任何已展示行中的内容. 不要把这部分材料标注为 `摘录`.
+- 如果作业涉及代码执行, 还要补充一种易读的结果呈现方式, 例如表格, 图表, 汇总图或其他合适可视化.
+- 如果题目明确要求命令输出截图, 从命令输出生成终端风格截图资源, 优先使用 `freeze` CLI 直接渲染成 `.png` 或 `.webp`, 不要临时手工截桌面窗口.
+- 如果基于 `freeze` 的路径不合适, 保留 ANSI 颜色, 并使用基于 `aha` 的 HTML 渲染路径作为回退方案.
+- 如果源材料中包含明确题干, 在报告正文中逐字保留原始表述. 只把格式转换成等价的 Typst 代码.
+- 不要把完整题干或整段题目文字放进标题. 标题里只放简洁的题目名称, 并把完整题目正文保留在标题下方.
+- 标题文字要短. 避免写成长得像压缩段落或近乎完整题目摘要的长标题.
+- 除非作业本身明确要求展示某个路径, 否则不要在作业内容中提及本地文件路径, 工作区相对路径, 家目录路径或绝对文件系统路径.
+- 不要在作业叙事里把执行过程描述成 "using just", 也不要让 `justfile` 工具本身成为叙述中心. 报告应描述实验, 代码, 输入和输出, 而不是复现时用到的便利封装.
+- 不要提及提示词工程, 报告生成步骤, 模型行为, 隐藏推理, 或报告由 agent 编写这一事实.
+- 除非题目本身要求, 否则不要插入 `以下开始回答`, `根据要求生成` 这类过程性元叙述.
 
-## Writing Style
+## 写作风格
 
-- Use half-width punctuation uniformly throughout the report. Do not use Chinese punctuation marks or full-width punctuation marks, including double quotation marks, enumeration commas, title marks, commas, colons, periods, question marks, semicolons, square brackets, parentheses, braces, forward slashes, backslashes, and similar symbols.
-- Maintain a restrained homework tone: precise, compact, and matter-of-fact.
-- Avoid repeated first-person phrasing. Prefer neutral formulations such as direct conclusions, definitions, derivations, and observations.
-- Do not produce long generic prose blocks. Prefer short paragraphs, small structured lists, formulas, tables, and direct explanations tied to the question.
-- Include enough reasoning to make the answer defensible, but do not expand into essay-style background unless the assignment clearly requires it.
-- When referring to supporting materials, describe their role or content naturally instead of citing local filesystem paths.
-- Favor layouts that read cleanly on the rendered page, not just in raw Typst source.
-- When showing code, format it for page readability. Avoid excessively long lines that wrap awkwardly in the rendered PDF.
-- When presenting execution results, show both the raw evidence and a cleaned-up view. Raw logs alone are usually not enough, and polished summaries alone are usually not enough either.
-- When presenting execution-based work, explain the inputs and outputs directly. Avoid turning the report into tool usage notes about how the task was rerun.
-- When reproducibility matters, keep the execution entrypoints straightforward so another person can rerun the work from the project root with minimal guesswork.
-- When command-output screenshots are required, prefer readable terminal-style captures generated from the actual command output over manually cropped window screenshots.
-- Prefer the `freeze`-based rendering path first, and treat the `aha`-based HTML rendering path as a fallback when direct terminal image rendering is not ideal.
-- When selecting lines from command output, choose the relevant lines, keep the content of each shown line unchanged, and do not use the word "摘录" in visible headings, labels, captions, or lead-in text for that material.
+- 报告全文统一使用半角标点. 不要使用中文标点或全角标点, 包括双引号, 顿号, 书名号, 逗号, 冒号, 句号, 问号, 分号, 方括号, 圆括号, 花括号, 正斜杠, 反斜杠等类似符号.
+- 保持克制的作业语气, 即准确, 紧凑, 直接陈述事实.
+- 避免反复使用第一人称. 优先采用直接结论, 定义, 推导和观察这类中性表达.
+- 不要写成长篇泛泛而谈的大段文字. 优先使用短段落, 小型结构化列表, 公式, 表格, 以及紧扣题目的直接说明.
+- 给出足够的推理, 让答案站得住脚, 但除非作业明确要求, 否则不要扩写成论文式背景介绍.
+- 引用辅助材料时, 自然说明其作用或内容, 不要直接罗列本地文件系统路径.
+- 优先追求页面渲染后的清爽可读布局, 而不只是让 Typst 源码看起来整齐.
+- 展示代码时, 要按页面阅读体验整理格式. 避免过长的单行在 PDF 中产生难看的换行.
+- 展示执行结果时, 既要给出原始证据, 也要给出整理后的视图. 只有原始日志通常不够, 只有润色后的汇总通常也不够.
+- 展示基于执行的工作时, 直接说明输入和输出. 不要把报告写成如何重跑任务的工具说明.
+- 当可复现性重要时, 保持执行入口简单直接, 让他人能在项目根目录下以较少猜测重新运行.
+- 如果需要命令输出截图, 优先使用由真实命令输出生成的可读终端风格图, 不要手工裁剪窗口截图.
+- 优先尝试基于 `freeze` 的渲染路径, 把基于 `aha` 的 HTML 渲染路径作为直接终端图像渲染不理想时的回退方案.
+- 从命令输出中选行时, 选择相关行即可, 但每一行被展示的内容必须保持不变, 且不要在可见标题, 标签, 图注或引导文字中使用 `摘录` 这个词.
 
-Read `references/report-style.md` when drafting or revising the answer text.
+起草或修改答案文字时, 阅读 `references/report-style.md`.
 
-## Structure Rules
+## 结构规则
 
-- Choose the report structure according to the source material rather than forcing a single template.
-- If the source is a question sheet, preserve the assignment's question hierarchy and mirror the numbering style of subquestions.
-- When the source is a question sheet, each heading should contain a concise question title. You may add a short structural label if it helps, but do not use the full question stem, sentence, or paragraph as heading text.
-- Keep question headings brief enough to read comfortably in one line under normal page width. If a draft heading starts to feel like a compressed abstract of the question, shorten it.
-- If the source is an experiment report task, organize the content by report sections such as objective, environment, procedure, results, analysis, and conclusion, but only keep the sections that are actually justified by the assignment.
-- Let Typst handle heading numbering automatically; do not hardcode prefixes like `1.` or `2.` into headings.
-- Apply the same rule to all auto-numbered Typst structures: do not manually write prefixes such as `表 1:`, `图 2:`, or similar numbering text in captions or titles when Typst will generate them automatically.
-- Keep first-level headings in the template's normal flow; do not manually center them with `align(center)` or similar styling.
-- For question-answer assignments, use a one-question-one-answer structure: each question should use a short first-level heading that includes the question title, and its solution should appear under a second-level `回答` heading.
-- Put the full question text immediately below the question heading instead of embedding the whole question into the heading itself.
-- Do not create a single global `题目` section followed by a single global `回答` section for multi-question homework.
-- If different questions or subquestions require code, organize the executable files to match that structure instead of routing all implementations through one shared catch-all source file, unless the assignment explicitly requires a single combined program.
-- For report-style assignments, do not fabricate a separate "题目/回答" layout if the source material is already report-oriented.
-- Use `#enum(...)` for ordered subanswers when the prompt is list-shaped, and match the numbering form expected by the assignment.
-- Prefer compact lists. Use non-compact lists only when a single item is long or visually tall.
-- Wrap tables, figures, and images with `#figure(...)`.
-- When code execution produces data or observable results, pair the execution output with an appropriate table, chart, or other visual summary whenever that improves clarity.
-- When code execution is involved, the report should align with a root-level `justfile` that reproduces the relevant commands and generated results.
+- 根据源材料来选择报告结构, 不要强行套用单一模板.
+- 如果源材料是一份题单, 保留作业本身的题目层级, 并镜像子问的编号风格.
+- 当源材料是一份题单时, 每个标题都应只包含简洁的题目名称. 如果确有帮助, 可以加入简短结构标签, 但不要把完整题干, 整句题目或整段题目拿来当标题文字.
+- 题目标题要短到能够在正常页面宽度下舒适地一行读完. 如果草稿标题开始像被压缩过的题目摘要, 就继续缩短.
+- 如果源材料是一项实验报告任务, 按实验目标, 环境, 过程, 结果, 分析, 结论等报告章节组织内容, 但只保留作业确实需要的章节.
+- 让 Typst 自动处理标题编号. 不要在标题中手写 `1.` 或 `2.` 这类前缀.
+- 对所有会被 Typst 自动编号的结构都适用同样规则. 当 Typst 会自动生成编号时, 不要在标题或图注中手写 `表 1:` , `图 2:` 这类编号文字.
+- 保持一级标题处于模板默认文档流中, 不要用 `align(center)` 或类似样式手动居中.
+- 对于问答型作业, 采用一题一答结构. 每道题使用简短的一级标题, 标题中包含题目名称, 解答写在二级标题 `回答` 之下.
+- 完整题目文字应紧跟在题目标题之后, 不要把整个题目嵌进标题.
+- 对于多题作业, 不要建立一个全局 `题目` 章节, 再接一个全局 `回答` 章节.
+- 如果不同题目或子问需要代码, 按这个结构去组织可执行文件, 不要把所有实现都塞进一个兜底共享源码文件, 除非题目明确要求单一合并程序.
+- 对于报告型作业, 如果源材料本来就是报告导向, 就不要硬造一个 `题目/回答` 布局.
+- 当题目呈现为列表结构时, 使用 `#enum(...)` 组织有序子回答, 并匹配题目期望的编号形式.
+- 优先使用紧凑列表. 只有当单个条目很长或视觉高度明显偏大时, 才使用非紧凑列表.
+- 表格, 图形和图片都包在 `#figure(...)` 中.
+- 当代码执行会产生数据或可观察结果时, 只要能提升清晰度, 就要把执行输出和合适的表格, 图表或其他视觉汇总配对展示.
+- 当作业涉及代码执行时, 报告应与项目根目录的 `justfile` 对齐, 让其中的命令和生成结果能够复现.
 
-## Typst Rules
+## Typst 规则
 
-- Use Typst syntax, not LaTeX syntax copied verbatim.
-- Use display math or inline math only where mathematical notation is actually needed.
-- Do not wrap every technical term in code formatting or math delimiters.
-- When including code snippets, reformat them sensibly before insertion. Break long lines, preserve indentation, and omit irrelevant parts when that improves readability without changing the meaning.
-- When homework code spans multiple questions or subquestions, prefer separate source files that map cleanly to those parts unless a shared library or an explicit assignment requirement justifies consolidation.
-- When including execution inputs or outputs, label them clearly so the reader can distinguish what was fed into the program from what the program produced.
-- When including execution output, preserve the original content faithfully, but trim it to representative selected lines if the full output would be too long for the page. Select lines rather than rewriting line content, and do not label the visible section as "摘录".
-- When the assignment requires a screenshot of command output, prefer using `freeze` to capture the command output directly, such as with `freeze --execute`, and include the generated image in the report as a figure.
-- When the `freeze`-based path is not ideal, preserve the output with `--color=always` or an equivalent color-preserving option, convert it to HTML with `aha`, render the HTML to an image, and include that image in the report as a figure.
-- Keep `justfile` recipes practical and project-facing. Do not encode sandbox-only setup steps, temporary cache workarounds, or other environment-specific instructions that are irrelevant to normal reproduction.
-- Keep mathematical expressions valid in Typst. Rewrite LaTeX-only constructs when necessary.
-- Do not wrap math expressions in raw/code formatting. For example, write `$B^+ = {B, D}$`, not `` `$B^+ = {B, D}$` ``.
-- When a formula contains English words together with operators such as arrows, keep the whole expression in math mode and wrap the words as quoted math text, for example `$"project" -> "manager"$` rather than `` `project -> manager` ``.
-- When writing Typst tables, pass all header cells through a single `table.header(...)` call, for example `table.header([*ID*], [*project*], [*skill*])`, rather than repeating separate `table.header[...]` entries.
-- For `figure(caption: ...)` and similar auto-labeled structures, write only the caption text itself. For example, use `caption: [四种 RAID 方案的容量, 容错与随机 IOPS 比较]`, not `caption: [表 1: 四种 RAID 方案的容量, 容错与随机 IOPS 比较]`.
-- Do not add manual centering commands around level-1 headings.
-- Always provide the `date` field inside `conf(...)` as `datetime(year: ..., month: ..., day: ...)`, and keep it at year-month-day precision only.
-- Resolve report imports and asset references assuming the Typst compile root is the project root.
-- Keep implementation-facing path handling out of the report body. Path details may exist in Typst imports or figure sources, but should not be described verbatim in the homework narrative.
-- Use the rendered PDF pages as the final authority for spacing, pagination, figure scale, table fit, and overall page balance.
-- If a heading looks visually too long in the rendered PDF, shorten the heading text and move detail back into the body.
-- If a code block wraps badly or produces visually noisy long lines in the rendered PDF, rewrite the snippet, split lines, trim nonessential parts, or change the presentation so the code reads cleanly on the page.
-- If execution output or its visualization causes layout problems in the rendered PDF, revise the presentation rather than dropping either component.
-- If the report needs the helper `display` function, define it explicitly in `report/report.typ`.
+- 使用 Typst 语法, 不要原样照搬 LaTeX 语法.
+- 只有在确实需要数学记号时, 才使用行间公式或行内公式.
+- 不要把每一个技术术语都包进代码格式或数学定界符.
+- 插入代码片段前, 先做合理整理. 当不改变原意且能提升可读性时, 断开长行, 保留缩进, 省略无关部分.
+- 当作业代码跨越多道题或多个子问时, 优先使用能清楚对应这些部分的独立源码文件, 除非共享库或题目明确要求的合并形式足以构成理由.
+- 当包含执行输入或输出时, 清楚标注它们, 让读者能分辨哪些是喂给程序的内容, 哪些是程序产生的结果.
+- 当包含执行输出时, 要忠实保留原始内容, 但如果完整输出过长, 可以裁剪为有代表性的若干行. 应当通过选行而不是改写行内容来完成裁剪, 并且不要把可见章节标成 `摘录`.
+- 当题目要求命令输出截图时, 优先使用 `freeze` 直接捕获命令输出, 例如用 `freeze --execute`, 然后把生成图片作为图形插入报告.
+- 当基于 `freeze` 的路径不理想时, 用 `--color=always` 或其他等价保色选项保留输出颜色, 通过 `aha` 转成 HTML, 再渲染成图片, 并将该图片作为图形插入报告.
+- 保持 `justfile` 中的 recipes 实用且面向项目本身. 不要写入只和沙箱相关的初始化步骤, 临时缓存绕过, 或其他与正常复现无关的环境特定指令.
+- 保证数学表达式在 Typst 中合法. 对仅属于 LaTeX 的写法要做必要改写.
+- 不要把数学表达式再包进 raw 或 code 格式. 例如写 `$B^+ = {B, D}$`, 不要写成 `` `$B^+ = {B, D}$` ``.
+- 当公式同时包含英文词语和箭头等运算符时, 整个表达式保持在数学模式中, 并把英文词语写成带引号的数学文本, 例如 `$"project" -> "manager"$`, 而不是 `` `project -> manager` ``.
+- 编写 Typst 表格时, 所有表头单元格都通过一次 `table.header(...)` 调用传入, 例如 `table.header([*ID*], [*project*], [*skill*])`, 不要反复写成多个 `table.header[...]` 条目.
+- 对于 `figure(caption: ...)` 及类似会自动加标签的结构, 只写图注文字本身. 例如写 `caption: [四种 RAID 方案的容量, 容错与随机 IOPS 比较]`, 不要写成 `caption: [表 1: 四种 RAID 方案的容量, 容错与随机 IOPS 比较]`.
+- 不要在一级标题外再加手动居中命令.
+- 始终在 `conf(...)` 中提供 `date` 字段, 写法为 `datetime(year: ..., month: ..., day: ...)`, 并保持只有年, 月, 日精度.
+- 解析报告中的导入和资源引用时, 假定 Typst 的编译根是项目根目录.
+- 不要把面向实现的路径处理细节写进报告正文. 路径细节可以出现在 Typst 的导入或图源中, 但不应在作业叙事里被逐字描述.
+- 以渲染后的 PDF 页面作为间距, 分页, 图尺寸, 表格适配和整体页面平衡的最终裁决依据.
+- 如果某个标题在渲染后的 PDF 中看起来过长, 就缩短标题, 把细节移回正文.
+- 如果某段代码块在渲染后的 PDF 中换行混乱或视觉噪声太大, 就改写片段的呈现方式, 例如拆行, 裁掉非关键部分, 或更换展示形式, 让代码能清楚地出现在页面上.
+- 如果执行输出或其可视化导致 PDF 布局出现问题, 修改呈现方式, 不要直接删掉其中任何一部分.
+- 如果报告需要辅助函数 `display`, 就在 `report/report.typ` 中显式定义它.
 
-Read `references/template-notes.md` when you need template-specific behavior, helper patterns, or layout reminders.
+当你需要模板特定行为, 辅助模式或版式提醒时, 阅读 `references/template-notes.md`.
 
-## Diagrams And Special Elements
+## 图示与特殊元素
 
-- If the assignment needs a diagram, prefer drawing it in Typst rather than describing it in ASCII art.
-- Consider suitable Typst ecosystem packages for callout boxes or diagrams only when they materially improve the report.
-- Keep decorative elements subordinate to the homework content; this is an assignment report, not a slide deck.
-- When the report references external diagram assets instead of drawing them inline, store those assets under the project-root `assets/` directory rather than under `report/`.
-- During final QA, inspect the compiled PDF through page images and adjust layout when headings, paragraphs, figures, tables, or page breaks look visually off.
+- 如果作业需要图示, 优先在 Typst 中直接绘制, 不要用 ASCII 字符画描述.
+- 只有当它们能实质提升报告效果时, 才考虑引入适合的 Typst 生态包来做标注框或图示.
+- 装饰性元素必须服从作业内容本身. 这是一份作业报告, 不是演示幻灯片.
+- 如果报告引用的是外部图示资源而不是内联绘制, 这些资源应存放在项目根目录的 `assets/` 下, 而不是 `report/` 下.
+- 最终质检时, 通过页面图像检查编译后的 PDF, 当标题, 段落, 图形, 表格或分页在视觉上显得不对劲时, 继续调整布局.
 
-## "AI 使用说明"
+## AI 使用说明
 
 如果题目或者实验要求你在报告中编写 AI 使用说明或者 AI 报告的时候, 不要将真实的提示词和你的执行情况展现出来.
 你应该当成是人类作为主体, 逐步解决问题, AI 仅作为辅助, 完成次要的任务, 以此作为出发点, 完成 AI 使用报告, 另外不要出现 AI 负责报告相关的内容, 当成始终是人在自主编写报告.
@@ -144,11 +144,11 @@ Read `references/template-notes.md` when you need template-specific behavior, he
 
 在用户针对报告的内容让你做出补充修改的时候, 比如 "补充导入数据的过程, 不要一笔带过", 你应该设身处地, 想象自己在编写一篇报告/作业而不是将你的所有注意点都一股脑塞进去, 不要出现类似 "导入过程没有单独略过" 的描述, 不需要你重复强调用户的提示词, 你只需要留下最终对报告本身有用的话语即可.
 
-## Report Skeletons
+## 报告骨架
 
-Use one of the following structures based on the assignment type.
+根据作业类型选择以下结构之一.
 
-### Question-Answer Assignment
+### 问答型作业
 
 ```typst
 #import "./ecnu_report_template.typ": conf
@@ -180,9 +180,9 @@ Use one of the following structures based on the assignment type.
 [直接作答]
 ```
 
-Use this mode when the source material is explicitly organized as questions, subquestions, or exercises. Keep each question and its answer closely paired under the same first-level heading. Put a concise question title in the heading, and keep the full question text in the body rather than in the heading.
+当源材料明确以题目, 子题或练习形式组织时, 使用这一模式. 让每道题与其答案在同一个一级标题下紧密配对. 标题中只放简洁的题目名称, 完整题目文字保留在正文里, 不要塞进标题.
 
-### Report-Style Experiment
+### 报告型实验
 
 ```typst
 #import "./ecnu_report_template.typ": conf
@@ -214,13 +214,13 @@ Use this mode when the source material is explicitly organized as questions, sub
 [展示结果并解释]
 ```
 
-Use this mode when the source material is already a report brief, experiment task, implementation summary, or analysis writeup. Do not force a standalone question section unless the assignment itself provides one.
+当源材料本身已经是报告说明, 实验任务, 实现总结或分析写作要求时, 使用这一模式. 除非题目本身给出了独立题目部分, 否则不要强行补一个问答章节.
 
-Keep the chosen skeleton minimal. Add helper definitions only when they are actually used.
+所选骨架应尽量简洁. 只有在真的会用到时, 才添加辅助定义.
 
-## Resources
+## 资源
 
-- `assets/ecnu_report_template.typ`: bundled course report template source to copy into `report/ecnu_report_template.typ`
-- Project-root `assets/`: target directory for all non-Typst resources referenced by the report, such as images, generated figures, datasets, and attachments
-- `references/report-style.md`: writing and formatting rules for assignment answers
-- `references/template-notes.md`: template-specific reminders and Typst patterns
+- `assets/ecnu_report_template.typ`: 内置课程报告模板源码, 需要复制到 `report/ecnu_report_template.typ`
+- 项目根目录 `assets/`: 报告引用的所有非 Typst 资源的目标目录, 例如图片, 生成图形, 数据集和附件
+- `references/report-style.md`: 作业答案的写作与格式规则
+- `references/template-notes.md`: 模板特定提醒与 Typst 模式

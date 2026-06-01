@@ -1,52 +1,52 @@
-# Report Style
+# 报告风格
 
-## Purpose
+## 用途
 
-Use this reference when turning a course assignment, lab prompt, or theory question into the final wording of `report/report.typ`.
+当课程作业, 实验题目或理论题需要整理成 `report/report.typ` 的最终文字时, 使用这份参考.
 
-## Core Expectations
+## 核心要求
 
-- Choose the report structure based on the source material.
-- For question-based assignments, preserve the question wording exactly as it appears in the source material. Do not change, paraphrase, omit, or rewrite any word in the question text.
-- Convert the question into appropriate Typst code rather than pasting it blindly, but keep the textual content itself unchanged.
-- For report-style experiments, organize the content as a report and do not invent a fake question sheet unless the source prompt provides one.
-- Omit background sections unless the assignment explicitly asks for them.
-- Write the solution in a homework style rather than a tutorial style.
-- Avoid emotional phrasing, conversational fillers, and repeated first-person statements.
-- Do not include model reasoning traces or comments about how the answer was produced.
+- 根据源材料选择报告结构.
+- 对于题目型作业, 题目文字必须与源材料完全一致. 不要改写, 意译, 删减, 或重写题干中的任何词语.
+- 需要把题目转换成合适的 Typst 结构, 不能只是机械粘贴, 但题目文字本身必须保持不变.
+- 对于报告型实验, 按报告方式组织内容, 除非源题目本身提供了题单, 否则不要人为虚构一份问答题单.
+- 除非作业明确要求, 否则不要额外补背景介绍.
+- 作答应保持作业报告口吻, 而不是教程口吻.
+- 避免情绪化措辞, 口语填充语, 以及反复使用第一人称.
+- 不要包含模型推理痕迹, 也不要解释答案是如何生成的.
 
-## Language And Punctuation
+## 语言与标点
 
-- Use half-width punctuation uniformly. Do not use Chinese punctuation marks or full-width punctuation marks, including double quotation marks, enumeration commas, title marks, commas, colons, periods, question marks, semicolons, square brackets, parentheses, braces, forward slashes, backslashes, and similar symbols.
-- Prefer short declarative sentences.
-- Use terminology consistently across the report.
-- Keep explanations concise; answer the task instead of adding broad textbook exposition.
+- 全文统一使用半角标点. 不要使用中文标点或全角标点, 包括双引号, 顿号, 书名号, 逗号, 冒号, 句号, 问号, 分号, 方括号, 圆括号, 花括号, 斜杠, 反斜杠等符号.
+- 优先使用简短的陈述句.
+- 术语在整篇报告中保持一致.
+- 说明保持精炼, 直接回答任务, 不要额外铺陈大段教材式背景.
 
-## Organizing Answers
+## 组织答案
 
-- For question-based assignments, make the beginning of the answer section visually explicit, but keep it formal and brief.
-- Mirror the prompt's subquestion structure when the prompt is question-based.
-- For question-based assignments, use a one-question-one-answer layout whenever practical.
-- For multi-question homework, place each question under its own first-level heading, then place the solution under a second-level `回答` heading within that section.
-- Do not collect all question statements into one `题目` section and all solutions into one `回答` section.
-- For report-style tasks, organize by experiment or report sections and keep only the sections that the assignment actually supports.
-- For list-shaped answers, use Typst `#enum(...)` and match the numbering form required by the prompt.
-- Do not manually add numbering prefixes to structures that Typst already numbers automatically, such as heading titles, figure captions, or similar labeled elements.
-- For comparisons, conditions, or transaction steps, a short list is usually clearer than a dense paragraph.
+- 对于题目型作业, 回答部分的开头要在视觉上清楚可辨, 但保持正式和简洁.
+- 当题目本身包含子问时, 答案结构应镜像对应题目的子问结构.
+- 对于题目型作业, 只要条件允许, 就采用一题一答的布局.
+- 对于多题作业, 每道题放在各自的一级标题下, 再在该节内使用二级标题 `回答` 放置解答.
+- 不要把所有题目集中放进一个 `题目` 章节, 再把所有答案集中放进一个 `回答` 章节.
+- 对于报告型任务, 按实验或报告章节组织内容, 只保留题目真正支持的那些章节.
+- 对于列表型回答, 使用 Typst 的 `#enum(...)`, 并与题目要求的编号形式保持一致.
+- 对于 Typst 已自动编号的结构, 例如标题, 图注或其他带标签元素, 不要再手动补编号前缀.
+- 对于比较, 条件判断或事务步骤, 简短列表通常比密集段落更清晰.
 
-## Math And Technical Content
+## 数学与技术内容
 
-- Put actual mathematical symbols and formulas in math mode.
-- Do not force every identifier into math mode.
-- Do not wrap formulas in raw/code spans after putting them in math mode.
-- Prefer `$B^+ = {B, D}$` over `` `$B^+ = {B, D}$` ``.
-- For formulas that include English words and operators such as `->`, keep the expression in math mode and write the words as quoted math text, for example `$"project" -> "manager"$`.
-- Do not write these expressions as raw/code spans such as `` `project -> manager` ``, because the arrow will remain plain ASCII.
-- When the prompt involves formulas, code, algorithms, structured concepts, or domain terminology, prefer exact terms over loose paraphrases.
+- 真正的数学符号和公式要写在数学模式中.
+- 不要把每个标识符都强行放进数学模式.
+- 公式进入数学模式后, 不要再额外包一层 raw 或 code 格式.
+- 优先写成 `$B^+ = {B, D}$`, 不要写成 `` `$B^+ = {B, D}$` ``.
+- 如果公式中同时包含英文单词和 `->` 之类的运算符, 整个表达式都应放在数学模式中, 并把英文单词写成带引号的数学文本, 例如 `$"project" -> "manager"$`.
+- 不要把这类表达式写成 raw 或 code 片段, 例如 `` `project -> manager` ``, 否则箭头会停留在普通 ASCII 形式.
+- 当题目涉及公式, 代码, 算法, 结构化概念或领域术语时, 优先使用准确术语, 不要松散意译.
 
-## What To Avoid
+## 避免事项
 
-- Do not use ASCII diagrams to stand in for proper figures.
-- Do not describe the writing process.
-- Do not add irrelevant "summary", "心得", or "reflection" sections unless they are part of the assignment requirements.
-- Do not pad the report with generic background material to make it look longer.
+- 不要用 ASCII 图代替正式图形.
+- 不要描述写作过程.
+- 除非作业要求中明确包含, 否则不要额外添加无关的 "summary", "心得" 或 "reflection" 章节.
+- 不要用泛泛而谈的背景材料把报告硬撑长.
