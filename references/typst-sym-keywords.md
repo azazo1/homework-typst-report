@@ -1,6 +1,6 @@
 # Typst sym 与 LaTeX 关键字对照
 
-- 来源: https://typst.app/docs/reference/symbols/sym/
+- 来源: <https://typst.app/docs/reference/symbols/sym/>
 - 页面标题: General Symbols - Typst Documentation
 - 抓取日期: 2026-06-01
 - Typst 关键字总数: 1154
