@@ -118,6 +118,8 @@ description: 使用内置的 ECNU 风格报告模板, 在 Typst 中撰写简洁�
 - 不要在一级标题外再加手动居中命令.
 - 始终在 `conf(...)` 中提供 `date` 字段, 写法为 `datetime(year: ..., month: ..., day: ...)`, 并保持只有年, 月, 日精度.
 - 解析报告中的导入和资源引用时, 假定 Typst 的编译根是项目根目录.
+- 如果需要把 LaTeX 公式中的符号名迁移到 Typst, 或者不确定某个 Typst 公式符号关键字是否存在, 先查 `references/typst-sym-keywords.md`.
+- 查找精确符号时, 优先按 Typst 前缀或 LaTeX 命令搜索该对照表, 不要凭印象猜测冷门符号名称.
 - 不要把面向实现的路径处理细节写进报告正文. 路径细节可以出现在 Typst 的导入或图源中, 但不应在作业叙事里被逐字描述.
 - 以渲染后的 PDF 页面作为间距, 分页, 图尺寸, 表格适配和整体页面平衡的最终裁决依据.
 - 如果某个标题在渲染后的 PDF 中看起来过长, 就缩短标题, 把细节移回正文.
@@ -226,3 +228,4 @@ description: 使用内置的 ECNU 风格报告模板, 在 Typst 中撰写简洁�
 - 项目根目录 `assets/`: 报告引用的所有非 Typst 资源的目标目录, 例如图片, 生成图形, 数据集和附件
 - `references/report-style.md`: 作业答案的写作与格式规则
 - `references/template-notes.md`: 模板特定提醒与 Typst 模式
+- `references/typst-sym-keywords.md`: Typst 符号关键字与 LaTeX 命令的对照表, 用于公式符号迁移与查找
