@@ -37,7 +37,7 @@
 ## 数学与技术内容
 
 - 在你编写相关 typst 代码的时候, 查阅 <https://typst.app/docs/reference/> 以获取准确的语法格式, 防止你乱写语法.
-- [typst-sym-keywords.md](typst-sym-keywords.md) 中给出了大部分 typst 拥有的数学符号, 不要在 typst 中使用 latex 专属的数学符号关键字, 也不要直接将可用的关键字放在 `""` 当中, 比如 `and` 是 typst 中数学符号合取的关键字, 那就不要使用 `$A "and" B$` 这种方式表达, 使用 `$ A and B`, 具体的你可以查阅关键字表.
+- [typst-sym-keywords.md](typst-sym-keywords.md) 中给出了大部分 typst 拥有的数学符号, 不要在 typst 中使用 latex 专属的数学符号关键字, 也不要直接将可用的关键字放在 `""` 当中, 比如 `and` 是 typst 中数学符号合取的关键字, 那就不要使用 `$A "and" B$` 这种方式表达, 使用 `$ A and B $`, 具体的你可以查阅关键字表.
 - typst 中的数学内容包裹不是使用大括号而是小括号, `sigma_{A = 10 or B > 50}(r)` 这样的数学公式应该改成 `sigma_(A = 10 or B > 50)(r)`.
 - 真正的数学符号和公式要写在数学模式中.
 - 公式进入数学模式后, 不要再额外包一层 raw 或 code 格式.
